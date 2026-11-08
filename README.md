@@ -6,7 +6,7 @@
 
 ## 构建
 
-安装 JDK 17、Android SDK Platform 37、Android SDK Build Tools、Android NDK `27.2.12479018` 与 CMake `3.22.1`。初始化固定版本的 LibreDWG：
+安装 JDK 17、Android SDK Platform 36、Android SDK Build Tools、Android NDK `27.3.13750724` 与 CMake `3.31.5`。初始化固定版本的 LibreDWG：
 
 ```sh
 git submodule update --init third_party/libredwg

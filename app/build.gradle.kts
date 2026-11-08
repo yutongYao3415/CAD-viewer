@@ -10,13 +10,13 @@ dependencies {
 
 android {
     namespace = "com.infomatik.dwgviewer"
-    compileSdk = 37
-    ndkVersion = "27.2.12479018"
+    compileSdk = 36
+    ndkVersion = "27.3.13750724"
 
     defaultConfig {
         applicationId = "com.infomatik.dwgviewer"
         minSdk = 26
-        targetSdk = 37
+        targetSdk = 36
         versionCode = 1
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -34,7 +34,7 @@ android {
     externalNativeBuild {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
-            version = "3.22.1"
+            version = "3.31.5"
         }
     }
 }
