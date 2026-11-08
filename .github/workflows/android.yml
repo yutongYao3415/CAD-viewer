@@ -13,7 +13,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v4
       - name: Install Android SDK components
         run: sdkmanager 'platforms;android-37' 'ndk;27.2.12479018' 'cmake;3.22.1'
       - name: Build APK and run scene tests
