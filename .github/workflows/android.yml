@@ -19,8 +19,18 @@ jobs:
       - name: Build APK and run scene tests
         run: |
           chmod +x gradlew
-          ./gradlew :app:assembleDebug :app:testDebugUnitTest
+          build_status=0
+          ./gradlew :app:assembleDebug :app:testDebugUnitTest --console=plain > gradle-build.log 2>&1 || build_status=$?
+          if [ "$build_status" -ne 0 ]; then
+            echo 'Gradle error lines:'
+            grep -nE '(^e: |error:|FAILURE:|BUILD FAILED|Execution failed for task|What went wrong:)' gradle-build.log | tail -n 40 || true
+            echo 'Last 100 build log lines:'
+            tail -n 100 gradle-build.log
+            exit "$build_status"
+          fi
+          tail -n 30 gradle-build.log
       - uses: actions/upload-artifact@v4
         with:
           name: dwg-viewer-debug
           path: app/build/outputs/apk/debug/*.apk
+
