@@ -99,11 +99,8 @@ std::string utf8(void *item, const char *type, const char *field, Dwg_Data *dwg)
 
 std::string nameOfLayer(Dwg_Object_LAYER *layer, Dwg_Data *dwg) {
     if (!layer) return "0";
-    int error = 0;
-    char *name = dwg_obj_layer_get_name(layer, &error);
-    std::string result = (!error && name) ? decodeText(name, dwg) : "0";
-    if (name && dwg->header.version >= R_2007) std::free(name);
-    return result;
+    std::string name = utf8(layer, "LAYER", "name", dwg);
+    return name.empty() ? "0" : name;
 }
 
 int indexedColor(int index) {
@@ -588,7 +585,6 @@ std::string readDrawing(const char *path) {
         dwg_free(&drawing);
         throw std::runtime_error("DWG 文件损坏或版本不受支持");
     }
-    dwg_api_init_version(&drawing);
     try {
         Reader reader(&drawing);
         std::string result = reader.convert();
@@ -617,3 +613,4 @@ Java_com_infomatik_dwgviewer_NativeBridge_readDrawing(JNIEnv *env, jobject, jstr
     env->ReleaseStringUTFChars(filePath, path);
     return env->NewStringUTF(result.c_str());
 }
+
